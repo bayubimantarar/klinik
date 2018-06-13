@@ -17,10 +17,10 @@ class CreatePasienTable extends Migration
             $table->increments('id');
             $table->string('kode_pasien');
             $table->string('nama_pasien');
-            $table->string('alamat_pasien');
-            $table->integer('gender_pasien');
-            $table->integer('umur_pasien');
-            $table->integer('telepon_pasien');
+            $table->string('alamat_pasien')->nullable();
+            $table->integer('gender_pasien')->nullable();
+            $table->integer('umur_pasien')->nullable();
+            $table->integer('telepon_pasien')->nullable();
             $table->timestamps();
         });
     }

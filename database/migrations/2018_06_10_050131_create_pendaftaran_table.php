@@ -21,7 +21,7 @@ class CreatePendaftaranTable extends Migration
             $table->string('kode_pasien');
             $table->string('kode_poliklinik');
             $table->float('biaya');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
