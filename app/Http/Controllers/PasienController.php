@@ -13,7 +13,7 @@ class PasienController extends Controller
      */
     public function index()
     {
-        //
+        return view('Pasien.Home');
     }
 
     /**
