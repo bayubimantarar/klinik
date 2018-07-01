@@ -39,7 +39,7 @@
 
     <div id="wrapper">
 
-        @include('Layouts.Pages.Navigation')
+        @include('layouts.pages.navigation')
 
         <div id="page-wrapper">
             @yield('content')
