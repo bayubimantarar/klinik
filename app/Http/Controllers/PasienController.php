@@ -37,9 +37,11 @@ class PasienController extends Controller
      */
     public function store(Request $request, PasienRepository $pasienRepository)
     {
-        $store = $pasienRepository->storeDataPasien($request->all());
+        $store = $pasienRepository
+            ->storeDataPasien($request->all());
 
-        return $store;
+        return response()
+            ->json(['stored' => true]);
     }
 
     /**
@@ -71,9 +73,17 @@ class PasienController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(
+        Request $request, 
+        PasienRepository $pasienRepository, 
+        $id) {
+        $update = $pasienRepository
+            ->updateDataPasien($request->all(), $id);
+
+        return response()
+            ->json([
+                'updated' => true
+            ]);
     }
 
     /**
@@ -82,9 +92,15 @@ class PasienController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PasienRepository $pasienRepository, $id)
     {
-        //
+        $pasien = $pasienRepository
+            ->destroyDataPasien($id);
+
+        return response()
+            ->json([
+                'destroyed' => true
+            ]);
     }
 
     /**

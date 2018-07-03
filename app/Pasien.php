@@ -10,6 +10,7 @@ class Pasien extends Model
     protected $fillable = [
         'kode_pasien', 
         'nama_pasien',
+        'alamat_pasien',
         'gender_pasien',
         'umur_pasien',
         'telepon_pasien', 

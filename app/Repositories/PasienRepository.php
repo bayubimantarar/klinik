@@ -16,4 +16,15 @@ class PasienRepository
     {
         return $store = Pasien::create($data);   
     }
+
+    public function updateDataPasien($data, $id)
+    {
+        return $update = Pasien::where('id', $id)
+            ->update($data);
+    }
+
+    public function destroyDataPasien($id)
+    {
+        return $destroy = Pasien::destroy($id);
+    }
 }
