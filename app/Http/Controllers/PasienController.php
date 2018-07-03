@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use App\Http\Requests\PasienRequest;
 use App\Repositories\PasienRepository;
-use DataTables;
 
 class PasienController extends Controller
 {
@@ -35,10 +36,11 @@ class PasienController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, PasienRepository $pasienRepository)
-    {
+    public function store(
+        PasienRequest $pasienRequest, 
+        PasienRepository $pasienRepository) {
         $store = $pasienRepository
-            ->storeDataPasien($request->all());
+            ->storeDataPasien($pasienRequest->all());
 
         return response()
             ->json(['stored' => true]);

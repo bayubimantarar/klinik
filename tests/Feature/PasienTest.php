@@ -12,8 +12,8 @@ class PasienTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @test itTestOpenThePage
-     */
+    * @test itTestOpenThePage
+    */
     public function itTestOpenThePage()
     {
         $pasien = $this->get('/');
@@ -21,8 +21,8 @@ class PasienTest extends TestCase
     }
 
     /**
-     * @test itStoreNewDataPasien
-     */
+    * @test itStoreNewDataPasien
+    */
     public function itStoreNewDataPasien()
     {
         $storeDataPasien = $this
@@ -97,8 +97,6 @@ class PasienTest extends TestCase
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
 
-
-
         $this
             ->assertDatabaseHas('pasien', [
                 'kode_pasien' => 'ABC002',
@@ -154,5 +152,47 @@ class PasienTest extends TestCase
                 'destroyed' => true
             ])
             ->assertStatus(200);
+    }
+
+    /**
+    * @test kodepasienCantBeEmpty
+    */
+    public function kodepasienCantBeEmpty()
+    {
+        $storeDataPasien = $this
+            ->json('post', '/pasien/store', [
+                'kode_pasien' => null,
+                'nama_pasien' => 'Bayu Bimantara',
+                'alamat_pasien' => 'Bandung',
+                'gender_pasien' => 1,
+                'umur_pasien' => 20,
+                'telepon_pasien' => 622,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+        $storeDataPasien
+            ->assertStatus(422);
+    }
+
+    /**
+    * @test namapasienCantBeEmpty
+    */
+    public function namapasienCantBeEmpty()
+    {
+        $storeDataPasien = $this
+            ->json('post', '/pasien/store', [
+                'kode_pasien' => 'ABC001',
+                'nama_pasien' => null,
+                'alamat_pasien' => 'Bandung',
+                'gender_pasien' => 1,
+                'umur_pasien' => 20,
+                'telepon_pasien' => 622,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+        $storeDataPasien
+            ->assertStatus(422);
     }
 }
