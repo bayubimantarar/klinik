@@ -15,7 +15,7 @@ class PasienTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/pasien')
-                ->assertPathIs('/pasien');
+                ->assertPathIs('/dokter');
         });
     }
 }
