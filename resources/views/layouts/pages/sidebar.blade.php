@@ -15,14 +15,14 @@
             <li>
                 <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
-            <li>
+            <li class="{{ Request::segment(1) === 'pasien' ? 'active' : null }}">
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Pasien<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="flot.html">Flot Charts</a>
                     </li>
                     <li>
-                        <a href="{{ route('pasien.index') }}">Pasien</a>
+                        <a href="{{ route('pasien.index') }}" class="{{ Request::segment(1) === 'pasien' ? 'active' : null }}">Pasien</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
