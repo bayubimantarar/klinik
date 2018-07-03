@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/', function(){
+    return view('home');
+});
+
 Route::group(['prefix' => 'pasien'], function(){
-    Route::get('/', 'PasienController@index');
+    Route::get('/', 'PasienController@index')->name('pasien.index');
 });

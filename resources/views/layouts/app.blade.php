@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="@yield('description')">
+    <meta name="author" content="Bayu Bimantara">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>@yield('title')</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -36,17 +36,24 @@
 </head>
 
 <body>
+    <!-- #Wrapper -->
+        <div id="wrapper">
 
-    <div id="wrapper">
+            <!-- Layouts Navbar -->
+                @include('layouts.pages.navbar')
+            <!-- /Layouts Navbar -->
 
-        @include('layouts.pages.navigation')
+            <!-- Layouts Sidebar -->
+                @include('layouts.pages.sidebar')
+            <!-- /Layouts Sidebar -->
 
-        <div id="page-wrapper">
-            @yield('content')
+            <!-- #Page-Wrapper -->
+                <div id="page-wrapper">
+                    @yield('content')
+                </div>
+            <!-- /#page-wrapper -->
+
         </div>
-        <!-- /#page-wrapper -->
-
-    </div>
     <!-- /#wrapper -->
 
     <!-- jQuery -->

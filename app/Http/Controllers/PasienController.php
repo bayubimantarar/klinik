@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\PasienRepository;
 
 class PasienController extends Controller
 {
@@ -11,9 +12,12 @@ class PasienController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PasienRepository $pasienrepository)
     {
-        return view('pasien.home');
+        // return view('pasien.home');
+        $pasien = $pasienrepository->getAllDataPasien();
+
+        dd($pasien);
     }
 
     /**

@@ -3,8 +3,12 @@
 namespace App\Repositories;
 
 use Illuminate\Http\Request;
+use App\Pasien;
 
 class PasienRepository
 {
-
+    public function getAllDataPasien()
+    {
+        return $pasien = Pasien::all();
+    }
 }
