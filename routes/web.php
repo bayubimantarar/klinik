@@ -17,4 +17,6 @@ Route::get('/', function(){
 
 Route::group(['prefix' => 'pasien'], function(){
     Route::get('/', 'PasienController@index')->name('pasien.index');
+    Route::get('/data', 'PasienController@dataPasien')->name('pasien.data');
+    Route::post('/store', 'PasienController@store')->name('pasien.store');
 });

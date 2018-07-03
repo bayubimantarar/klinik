@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Repositories\PasienRepository;
+use DataTables;
 
 class PasienController extends Controller
 {
@@ -34,9 +35,11 @@ class PasienController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, PasienRepository $pasienRepository)
     {
-        //
+        $store = $pasienRepository->storeDataPasien($request->all());
+
+        return $store;
     }
 
     /**
@@ -82,5 +85,21 @@ class PasienController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function dataPasien(PasienRepository $PasienRepository)
+    {
+        $pasien = $PasienRepository
+            ->getAllDataPasien();
+
+        return datatables()
+            ->of($pasien)
+            ->toJson();
     }
 }

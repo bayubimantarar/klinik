@@ -11,4 +11,9 @@ class PasienRepository
     {
         return $pasien = Pasien::all();
     }
+
+    public function storeDataPasien($data)
+    {
+        return $store = Pasien::create($data);   
+    }
 }
