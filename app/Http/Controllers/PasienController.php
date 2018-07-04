@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Http\Requests\PasienRequest;
 use App\Repositories\PasienRepository;
+use Romans\Filter\IntToRoman;
 
 class PasienController extends Controller
 {
@@ -17,7 +18,11 @@ class PasienController extends Controller
      */
     public function index()
     {
-        return view('pasien.home');
+        // return view('pasien.home');
+        $filter = new IntToRoman();
+        $result = $filter->filter(1999); // MCMXCIX
+
+        dd($result);
     }
 
     /**
