@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use Illuminate\Http\Request;
+use App\Services\PasienService;
 use Illuminate\Support\Collection;
 use App\Http\Requests\PasienRequest;
 use App\Repositories\PasienRepository;
-use Romans\Filter\IntToRoman;
 
 class PasienController extends Controller
 {
@@ -18,11 +18,7 @@ class PasienController extends Controller
      */
     public function index()
     {
-        // return view('pasien.home');
-        $filter = new IntToRoman();
-        $result = $filter->filter(1999); // MCMXCIX
-
-        dd($result);
+        return view('pasien.home');
     }
 
     /**
@@ -30,9 +26,11 @@ class PasienController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(PasienService $pasienService)
     {
-        return view('pasien.create');
+        $kodePasien = $pasienService->getkodepasien();
+
+        return view('pasien.form', compact('kodePasien'));
     }
 
     /**
@@ -47,8 +45,11 @@ class PasienController extends Controller
         $store = $pasienRepository
             ->storeDataPasien($pasienRequest->all());
 
-        return response()
-            ->json(['stored' => true]);
+        return redirect('/pasien');
+        // return response()
+        //     ->json([
+        //         'stored' => true
+        //     ]);
     }
 
     /**
@@ -68,9 +69,11 @@ class PasienController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(PasienRepository $pasienRepository, $id)
     {
-        //
+        $pasien = $pasienRepository->getOneDataPasien($id);
+
+        return view('pasien.form', compact('pasien'));
     }
 
     /**
@@ -81,16 +84,13 @@ class PasienController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        Request $request, 
+        PasienRequest $pasienRequest, 
         PasienRepository $pasienRepository, 
         $id) {
         $update = $pasienRepository
-            ->updateDataPasien($request->all(), $id);
+            ->updateDataPasien($pasienRequest->all(), $id);
 
-        return response()
-            ->json([
-                'updated' => true
-            ]);
+        return view('pasien');
     }
 
     /**
@@ -121,8 +121,11 @@ class PasienController extends Controller
         $pasien = $PasienRepository
             ->getAllDataPasien();
 
-        return datatables()
-            ->of($pasien)
-            ->toJson();
+        return DataTables::of($pasien)
+                ->addColumn('action', function($pasien){
+                    return '<center><a href="/pasien/edit/'.$pasien->id.'" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a> <a onclick="delete_data('.$pasien->id.')" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a></center>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
     }
 }

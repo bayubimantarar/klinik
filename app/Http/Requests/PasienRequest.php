@@ -28,4 +28,11 @@ class PasienRequest extends FormRequest
             'nama_pasien' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'nama_pasien.required' => 'Nama lengkap perlu diisi!'
+        ];
+    }
 }

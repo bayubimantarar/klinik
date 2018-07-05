@@ -26,7 +26,7 @@ Pasien
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="">Kode Pasien</label>
-                                <input type="text" name="kode_pasien" class="form-control" value="{{ $kodePasien }}" readonly>
+                                <input type="text" name="kode_pasien" class="form-control" value="{{ $pasien->kode_pasien }}" readonly>
                             </div>
                         </div>
                     </div>

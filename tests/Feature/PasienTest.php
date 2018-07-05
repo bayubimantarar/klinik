@@ -50,10 +50,7 @@ class PasienTest extends TestCase
             ]);
 
         $storeDataPasien
-            ->assertJson([
-                'stored' => true
-            ])
-            ->assertStatus(200);
+            ->assertStatus(302);
     }
 
     /**
@@ -109,9 +106,6 @@ class PasienTest extends TestCase
             ]);
 
         $updateDataPasien
-            ->assertJson([
-                'updated' => true
-            ])
             ->assertStatus(200);
     }
 

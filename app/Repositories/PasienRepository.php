@@ -12,9 +12,17 @@ class PasienRepository
         return $pasien = Pasien::all();
     }
 
+    public function getOneDataPasien($id)
+    {
+        $pasien = Pasien::where('id', $id)
+            ->firstOrFail();
+
+        return $pasien;
+    }
+
     public function storeDataPasien($data)
     {
-        return $store = Pasien::create($data);   
+        return $store = Pasien::create($data);
     }
 
     public function updateDataPasien($data, $id)
