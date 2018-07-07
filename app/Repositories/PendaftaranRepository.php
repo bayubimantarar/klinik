@@ -3,38 +3,38 @@
 namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use App\Pendaftaran;
+use App\Pasien;
 
 class PendaftaranRepository
 {
-    public function getAllDataPendaftaran()
+    public function getAllDataPasien()
     {
-        return $Pendaftaran = Pendaftaran::all();
+        return $pasien = Pasien::all();
     }
 
-    public function getOneDataPendaftaran($id)
+    public function getOneDataPendaftaram($id)
     {
-        $Pendaftaran = Pendaftaran::where('id', $id)
+        $pasien = Pasien::where('id', $id)
             ->firstOrFail();
 
-        return $Pendaftaran;
+        return $pasien;
     }
 
-    public function storeDataPendaftaran($Pendaftaran)
+    public function storeDataPasien($pasien)
     {
-        $PendaftaranStore = Pendaftaran::create($Pendaftaran);
+        $pasienStore = Pasien::create($pasien);
 
-        return $PendaftaranStore;
+        return $pasienStore;
     }
 
-    public function updateDataPendaftaran($Pendaftaran, $id)
+    public function updateDataPasien($pasien, $id)
     {
-        return $update = Pendaftaran::where('id', $id)
-            ->update($Pendaftaran);
+        return $update = Pasien::where('id', $id)
+            ->update($pasien);
     }
 
-    public function destroyDataPendaftaran($id)
+    public function destroyDataPasien($id)
     {
-        return $destroy = Pendaftaran::destroy($id);
+        return $destroy = Pasien::destroy($id);
     }
 }

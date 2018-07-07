@@ -11,21 +11,29 @@ use App\Repositories\PasienRepository;
 
 class PasienController extends Controller
 {
+    private $pasienRepo;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Set the construct
+    **/
+    public function __construct(PasienRepository $pasienRepository)
+    {
+        $this->pasienRepo = $pasienRepository;
+    }
+
+    /**
+    * Display a listing of the resource.
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         return view('pasien.home');
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Show the form for creating a new resource.
+    * @return \Illuminate\Http\Response
+    */
     public function create(PasienService $pasienService)
     {
         $kodePasien = $pasienService->getkodepasien();
@@ -34,14 +42,12 @@ class PasienController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(
-        PasienRequest $pasienRequest, 
-        PasienRepository $pasienRepository) {
+    * Store a newly created resource in storage.
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function store(PasienRequest $pasienRequest) 
+    {
         $pasien = [
             'kode_pasien' => $pasienRequest->kode_pasien,
             'nama_pasien' => $pasienRequest->nama_pasien,
@@ -51,47 +57,42 @@ class PasienController extends Controller
             'telepon_pasien' => $pasienRequest->telepon_pasien,
         ];
 
-        $store = $pasienRepository
+        $store = $this->pasienRepo
             ->storeDataPasien($pasien);
 
         return redirect('/pasien');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Display the specified resource.
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function show($id)
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Show the form for editing the specified resource.
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function edit(PasienRepository $pasienRepository, $id)
     {
-        $pasien = $pasienRepository->getOneDataPasien($id);
+        $pasien = $this->pasienRepo
+            ->getOneDataPasien($id);
 
         return view('pasien.form', compact('pasien'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(
-        PasienRequest $pasienRequest, 
-        PasienRepository $pasienRepository, 
-        $id) {
+    * Update the specified resource in storage.
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function update(PasienRequest $pasienRequest, $id) {
         $pasien = [
             'kode_pasien' => $pasienRequest->kode_pasien,
             'nama_pasien' => $pasienRequest->nama_pasien,
@@ -101,35 +102,33 @@ class PasienController extends Controller
             'telepon_pasien' => $pasienRequest->telepon_pasien,
         ];
 
-        $update = $pasienRepository
+        $update = $this->pasienRepo
             ->updateDataPasien($pasien, $id);
 
         return view('pasien.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Remove the specified resource from storage.
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function destroy(PasienRepository $pasienRepository, $id)
     {
-        $pasien = $pasienRepository
+        $pasien = $this->pasienRepo
             ->destroyDataPasien($id);
 
         return response()->json($id);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function dataPasien(PasienRepository $PasienRepository)
+    * Remove the specified resource from storage.
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function dataPasien()
     {
-        $pasien = $PasienRepository
+        $pasien = $this->pasienRepo
             ->getAllDataPasien();
 
         return DataTables::of($pasien)
