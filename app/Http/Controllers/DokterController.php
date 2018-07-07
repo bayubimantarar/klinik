@@ -3,9 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\DokterRequest;
+use App\Repositories\DokterRepository;
 
-class PendaftaranController extends Controller
+class DokterController extends Controller
 {
+    private $dokterRepo;
+    private $dokterReq;
+
+    /**
+    * Set the construct
+    **/
+    public function __construct(
+        DokterRepository $dokterRepository,
+        DokterRequest $dokterRequest
+    ) {
+        $this->dokterRepo = $dokterRepository;
+        $this->dokterReq = $dokterRequest;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +39,7 @@ class PendaftaranController extends Controller
      */
     public function create()
     {
-        return view('pendaftaran.form');
+        //
     }
 
     /**
@@ -32,9 +48,25 @@ class PendaftaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $dokter = [
+            'kode_dokter'       => $this->dokterReq->kode_dokter,
+            'nama_dokter'       => $this->dokterReq->nama_dokter,
+            'spesialis'         => $this->dokterReq->spesialis,
+            'alamat_dokter'     => $this->dokterReq->alamat_dokter,
+            'telepon_dokter'    => $this->dokterReq->telepon_dokter,
+            'kode_poliklinik'   => $this->dokterReq->kode_poliklinik,
+            'tarif'             => $this->dokterReq->tarif,
+        ];
+
+        $store = $this
+            ->dokterRepo
+            ->storeDataDokter($dokter);
+
+        return response()->json([
+            'stored' => true
+        ]);
     }
 
     /**

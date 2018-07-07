@@ -27,13 +27,24 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-users fa-fw"></i> Pasien<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-user fa-fw"></i> Pasien<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{ route('pasien.create') }}"><i class="fa fa-plus"></i> Tambah Data Pasien</a>
                     </li>
                     <li>
                         <a href="{{ route('pasien.index') }}"><i class="fa fa-file-o"></i> Data Pasien</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-group fa-fw"></i> Dokter<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="#"><i class="fa fa-plus"></i> Tambah Data Dokter</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-file-o"></i> Data Dokter</a>
                     </li>
                 </ul>
             </li>

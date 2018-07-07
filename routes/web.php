@@ -25,6 +25,11 @@ Route::group(['prefix' => 'pasien'], function(){
     Route::delete('/destroy/{id}', 'PasienController@destroy')->name('pasien.destroy');
 });
 
+Route::group(['prefix' => 'dokter'], function(){
+    Route::get('/', 'DokterController@index')->name('dokter.index');
+    Route::post('/store', 'DokterController@store')->name('dokter.store');
+});
+
 Route::group(['prefix' => 'pendaftaran'], function(){
     Route::get('/', 'PendaftaranController@index')->name('pendaftaran.index');
     Route::get('/create', 'PendaftaranController@create')->name('pendaftaran.create');

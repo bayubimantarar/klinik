@@ -20,21 +20,30 @@ Pasien
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <form action="{{ route('pasien.store') }}" method="post">
+                @if(isset($pasien))
+                    {!! Form::model($pasien, ['url' => '/pasien/update/'.$pasien->id, 'method' => 'put']) !!}
+                @else
+                    {!! Form::open(['url' => '/pasien/store', 'method' => 'post']) !!}
+                @endif
                     @csrf
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="">Kode Pasien</label>
-                                <input type="text" name="kode_pasien" class="form-control" value="{{ $kodePasien }}" readonly>
+                                @if(isset($pasien))
+                                    {!! Form::label('kode_pasien', 'Kode', ['class' => 'control-label']) !!}
+                                    {!! Form::text('kode_pasien', Input::old('kode_pasien'), ['class' => 'form-control', 'readonly' => true]) !!}
+                                @else
+                                    {!! Form::label('kode_pasien', 'Kode', ['class' => 'control-label']) !!}
+                                    {!! Form::text('kode_pasien', $kodePasien, ['class' => 'form-control', 'readonly' => true]) !!}
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('nama_pasien') ? ' has-error' : ''}}">
                         <div class="row">
                             <div class="col-md-4">
-                                <label class="control-label" for="inputError">Nama Lengkap</label>
-                                <input type="text" name="nama_pasien" class="form-control" id="inputError">
+                                {!! Form::label('nama_pasien', 'Nama Lengkap', ['class' => 'control-label']) !!}
+                                {!! Form::text('nama_pasien', Input::old('kode_pasien'), ['class' => 'form-control']) !!}
                                 @if($errors->has('nama_pasien'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('nama_pasien') }}</strong>
@@ -46,41 +55,37 @@ Pasien
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="">Gender Pasien</label>
-                                <select name="gender_pasien" id="" class="form-control">
-                                    <option value="1">Laki-Laki</option>
-                                    <option value="2">Perempuan</option>
-                                </select>
+                                {!! Form::label('gender_pasien', 'Jenis Kelamin', ['class' => 'control-label']) !!}
+                                {!! Form::select('size', ['1' => 'Laki-Laki', '2' => 'Perempuan'], '', ['class' => 'form-control']) !!}
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="">Umur Pasien</label>
-                                <input type="number" name="umur_pasien" class="form-control">
+                                {!! Form::label('umur_pasien', 'Umur', ['class' => 'control-label']) !!}
+                                {!! Form::number('umur_pasien', Input::old('umur_pasien'), ['class' => 'form-control']) !!}
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="">Telepon Pasien</label>
-                                <input type="number" name="telepon_pasien" class="form-control">
+                                {!! Form::label('telepon_pasien', 'Nomor Telepon', ['class' => 'control-label']) !!}
+                                {!! Form::number('telepon_pasien', Input::old('telepon_pasien'), ['class' => 'form-control']) !!}
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="">Alamat Pasien</label>
-                                <textarea name="alamat_pasien" id="" rows="5" class="form-control"></textarea>
+                                <label for="">Alamat Lengkap</label>
+                                {!! Form::textarea('alamat_pasien', Input::old('alamat_pasien'), ['class'=>'form-control', 'rows' => 5]) !!}
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Simpan</button>
-                    <a href="{{ route('pasien.index') }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> Batal</a>
-                </form>
+                    {!! Form::button('<i class="fa fa-check"></i> Simpan', ['type' => 'submit', 'class' => 'btn btn-sm btn-primary']) !!}
+                    {!! Form::close() !!}
             </div>
             <!-- /.panel-body -->
         </div>
@@ -90,11 +95,3 @@ Pasien
 </div>
 <!-- /.row -->
 @endsection
-
-@push('js')
-<script>
-    $(document).ready(function(){
-        console.log('create');
-    });
-</script>
-@endpush

@@ -14,9 +14,9 @@ class PasienTest extends TestCase
     /**
     * @test itTestOpenThePage
     */
-    public function itTestOpenThePage()
+    public function itTestPasienPage()
     {
-        $pasien = $this->get('/');
+        $pasien = $this->get('/pasien');
         $pasien = $this->assertTrue(true);
     }
 
@@ -106,7 +106,7 @@ class PasienTest extends TestCase
             ]);
 
         $updateDataPasien
-            ->assertStatus(200);
+            ->assertStatus(302);
     }
 
     /**
@@ -142,9 +142,6 @@ class PasienTest extends TestCase
             ->json('delete', '/pasien/destroy/1');
 
         $destroyDataPasien
-            ->assertJson([
-                'destroyed' => true
-            ])
             ->assertStatus(200);
     }
 

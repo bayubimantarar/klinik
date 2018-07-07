@@ -36,7 +36,8 @@ class PasienController extends Controller
     */
     public function create(PasienService $pasienService)
     {
-        $kodePasien = $pasienService->getkodepasien();
+        $kodePasien = $pasienService
+            ->getkodepasien();
 
         return view('pasien.form', compact('kodePasien'));
     }
@@ -105,7 +106,7 @@ class PasienController extends Controller
         $update = $this->pasienRepo
             ->updateDataPasien($pasien, $id);
 
-        return view('pasien.index');
+        return redirect(route('pasien.index'));
     }
 
     /**
