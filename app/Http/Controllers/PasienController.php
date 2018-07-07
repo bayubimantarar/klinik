@@ -115,13 +115,8 @@ class PasienController extends Controller
      */
     public function destroy(PasienRepository $pasienRepository, $id)
     {
-        // $pasien = $pasienRepository
-        //     ->destroyDataPasien($id);
-
-        // return response()
-        //     ->json([
-        //         'destroyed' => true
-        //     ]);
+        $pasien = $pasienRepository
+            ->destroyDataPasien($id);
 
         return response()->json($id);
     }

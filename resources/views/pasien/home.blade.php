@@ -62,11 +62,15 @@ Pasien
 
         if (confirmation) {
             $.ajax({
+                headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 url: '/pasien/destroy/'+id,
-                method: 'destroy',
+                type: 'delete',
                 dataType: 'json',
                 success: function(result){
-                    console.log(result);
+                    alert('Data berhasil dihapus!');
+                    pasien_table.ajax.reload();
                 }
             });
         }
