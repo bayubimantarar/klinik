@@ -42,14 +42,19 @@ class PasienController extends Controller
     public function store(
         PasienRequest $pasienRequest, 
         PasienRepository $pasienRepository) {
+        $pasien = [
+            'kode_pasien' => $pasienRequest->kode_pasien,
+            'nama_pasien' => $pasienRequest->nama_pasien,
+            'alamat_pasien' => $pasienRequest->alamat_pasien,
+            'gender_pasien' => $pasienRequest->gender_pasien,
+            'umur_pasien' => $pasienRequest->umur_pasien,
+            'telepon_pasien' => $pasienRequest->telepon_pasien,
+        ];
+
         $store = $pasienRepository
-            ->storeDataPasien($pasienRequest->all());
+            ->storeDataPasien($pasien);
 
         return redirect('/pasien');
-        // return response()
-        //     ->json([
-        //         'stored' => true
-        //     ]);
     }
 
     /**
@@ -87,10 +92,19 @@ class PasienController extends Controller
         PasienRequest $pasienRequest, 
         PasienRepository $pasienRepository, 
         $id) {
-        $update = $pasienRepository
-            ->updateDataPasien($pasienRequest->all(), $id);
+        $pasien = [
+            'kode_pasien' => $pasienRequest->kode_pasien,
+            'nama_pasien' => $pasienRequest->nama_pasien,
+            'alamat_pasien' => $pasienRequest->alamat_pasien,
+            'gender_pasien' => $pasienRequest->gender_pasien,
+            'umur_pasien' => $pasienRequest->umur_pasien,
+            'telepon_pasien' => $pasienRequest->telepon_pasien,
+        ];
 
-        return view('pasien');
+        $update = $pasienRepository
+            ->updateDataPasien($pasien, $id);
+
+        return view('pasien.index');
     }
 
     /**
@@ -101,13 +115,15 @@ class PasienController extends Controller
      */
     public function destroy(PasienRepository $pasienRepository, $id)
     {
-        $pasien = $pasienRepository
-            ->destroyDataPasien($id);
+        // $pasien = $pasienRepository
+        //     ->destroyDataPasien($id);
 
-        return response()
-            ->json([
-                'destroyed' => true
-            ]);
+        // return response()
+        //     ->json([
+        //         'destroyed' => true
+        //     ]);
+
+        return response()->json($id);
     }
 
     /**
@@ -123,7 +139,7 @@ class PasienController extends Controller
 
         return DataTables::of($pasien)
                 ->addColumn('action', function($pasien){
-                    return '<center><a href="/pasien/edit/'.$pasien->id.'" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a> <a onclick="delete_data('.$pasien->id.')" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a></center>';
+                    return '<center><a href="/pasien/edit/'.$pasien->id.'" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a> <a onclick="destroy('.$pasien->id.')" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a></center>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);

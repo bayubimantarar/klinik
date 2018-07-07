@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use Romans\Filter\IntToRoman;
+use App\Repositories\PasienRepository;
 
 class PasienService
 {

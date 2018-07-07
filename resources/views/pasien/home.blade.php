@@ -44,18 +44,32 @@ Pasien
 
 @push('js')
 <script>
-    $(document).ready(function(){
-        $('#pasien-table').DataTable({
-            serverSide: true,
-            processing: true,
-            ajax: '/pasien/data',
-            columns: [
-                {data: 'kode_pasien'},
-                {data: 'nama_pasien'},
-                {data: 'alamat_pasien'},
-                {data: 'action', orderable: false, searchable: false}
-            ]
-        });
+    var pasien_table = $('#pasien-table').DataTable({
+        serverSide: true,
+        processing: true,
+        ajax: '/pasien/data',
+        columns: [
+            {data: 'kode_pasien'},
+            {data: 'nama_pasien'},
+            {data: 'alamat_pasien'},
+            {data: 'action', orderable: false, searchable: false}
+        ]
     });
+
+    function destroy(id)
+    {
+        var confirmation = confirm("Yakin akan menghapus data ini?");
+
+        if (confirmation) {
+            $.ajax({
+                url: '/pasien/destroy/'+id,
+                method: 'destroy',
+                dataType: 'json',
+                success: function(result){
+                    console.log(result);
+                }
+            });
+        }
+    }
 </script>
 @endpush

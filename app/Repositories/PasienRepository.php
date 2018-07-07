@@ -20,15 +20,17 @@ class PasienRepository
         return $pasien;
     }
 
-    public function storeDataPasien($data)
+    public function storeDataPasien($pasien)
     {
-        return $store = Pasien::create($data);
+        $pasienStore = Pasien::create($pasien);
+
+        return $pasienStore;
     }
 
-    public function updateDataPasien($data, $id)
+    public function updateDataPasien($pasien, $id)
     {
         return $update = Pasien::where('id', $id)
-            ->update($data);
+            ->update($pasien);
     }
 
     public function destroyDataPasien($id)
