@@ -24,7 +24,13 @@ class DokterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'kode_dokter' => 'required',
+            'nama_dokter' => 'required',
+            'spesialis' => 'required',
+            'alamat_dokter' => 'required',
+            'telepon_dokter' => 'required',
+            'kode_poliklinik' => 'required',
+            'tarif' => 'required'
         ];
     }
 }
