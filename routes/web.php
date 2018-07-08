@@ -16,21 +16,54 @@ Route::get('/', function(){
 });
 
 Route::group(['prefix' => 'pasien'], function(){
-    Route::get('/', 'PasienController@index')->name('pasien.index');
-    Route::get('/data', 'PasienController@dataPasien')->name('pasien.data');
-    Route::get('/create', 'PasienController@create')->name('pasien.create');
-    Route::get('/edit/{id}', 'PasienController@edit')->name('pasien.edit');
-    Route::put('/update/{id}', 'PasienController@update')->name('pasien.update');
-    Route::post('/store', 'PasienController@store')->name('pasien.store');
-    Route::delete('/destroy/{id}', 'PasienController@destroy')->name('pasien.destroy');
+    Route::get('/', [
+        'uses' => 'PasienController@index',
+        'as' => 'pasien.index'
+    ]);
+    Route::get('/data', [
+        'uses' => 'PasienController@dataPasien',
+        'as' => 'pasien.data'
+    ]);
+    Route::get('/create', [
+        'uses' => 'PasienController@create',
+        'as' => 'pasien.create'
+    ]);
+    Route::get('/edit/{id}', [
+        'uses' => 'PasienController@edit',
+        'as' => 'pasien.edit'
+    ]);
+    Route::put('/update/{id}', [
+        'uses' => 'PasienController@update',
+        'as' => 'pasien.update'
+    ]);
+    Route::post('/store', [
+        'uses' => 'PasienController@store',
+        'as' => 'pasien.store'
+    ]);
+    Route::delete('/destroy/{id}', [
+        'uses' => 'PasienController@destroy',
+        'as' => 'pasien.destroy'
+    ]);
 });
 
 Route::group(['prefix' => 'dokter'], function(){
-    Route::get('/', 'DokterController@index')->name('dokter.index');
-    Route::post('/store', 'DokterController@store')->name('dokter.store');
+    Route::get('/', [
+        'uses' => 'DokterController@index',
+        'as' => 'dokter.index'
+    ]);
+    Route::post('/store', [
+        'uses' => 'DokterController@store',
+        'as' => 'dokter.store'
+    ]);
 });
 
 Route::group(['prefix' => 'pendaftaran'], function(){
-    Route::get('/', 'PendaftaranController@index')->name('pendaftaran.index');
-    Route::get('/create', 'PendaftaranController@create')->name('pendaftaran.create');
+    Route::get('/', [
+        'uses' => 'PendaftaranController@index',
+        'as' => 'pendaftaran.index'
+    ]);
+    Route::get('/create', [
+        'uses' => 'PendaftaranController@create',
+        'as' => 'pendaftaran.create'
+    ]);
 });

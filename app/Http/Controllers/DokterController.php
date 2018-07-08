@@ -9,17 +9,14 @@ use App\Repositories\DokterRepository;
 class DokterController extends Controller
 {
     private $dokterRepo;
-    private $dokterReq;
 
     /**
     * Set the construct
     **/
     public function __construct(
-        DokterRepository $dokterRepository,
-        DokterRequest $dokterRequest
+        DokterRepository $dokterRepository
     ) {
         $this->dokterRepo = $dokterRepository;
-        $this->dokterReq = $dokterRequest;
     }
 
     /**
@@ -48,16 +45,16 @@ class DokterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(DokterRequest $dokterReq)
     {
         $dokter = [
-            'kode_dokter'       => $this->dokterReq->kode_dokter,
-            'nama_dokter'       => $this->dokterReq->nama_dokter,
-            'spesialis'         => $this->dokterReq->spesialis,
-            'alamat_dokter'     => $this->dokterReq->alamat_dokter,
-            'telepon_dokter'    => $this->dokterReq->telepon_dokter,
-            'kode_poliklinik'   => $this->dokterReq->kode_poliklinik,
-            'tarif'             => $this->dokterReq->tarif,
+            'kode_dokter'       => $dokterReq->kode_dokter,
+            'nama_dokter'       => $dokterReq->nama_dokter,
+            'spesialis'         => $dokterReq->spesialis,
+            'alamat_dokter'     => $dokterReq->alamat_dokter,
+            'telepon_dokter'    => $dokterReq->telepon_dokter,
+            'kode_poliklinik'   => $dokterReq->kode_poliklinik,
+            'tarif'             => $dokterReq->tarif,
         ];
 
         $store = $this

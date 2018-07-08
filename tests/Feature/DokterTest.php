@@ -17,7 +17,7 @@ class DokterTest extends TestCase
     {
         $this
             ->get('/dokter')
-            ->assertStatus(302);
+            ->assertStatus(200);
     }
 
     /**
