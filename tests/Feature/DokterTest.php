@@ -52,10 +52,7 @@ class DokterTest extends TestCase
             ]);
 
         $storeDataDokter
-            ->assertJson([
-                'stored' => true
-            ])
-            ->assertStatus(200);
+            ->assertStatus(302);
     }
 
     /**
@@ -210,5 +207,104 @@ class DokterTest extends TestCase
 
         $storeDataDokter
             ->assertStatus(422);
+    }
+
+    /**
+    * @test itUpdateDataDokter
+    */
+    public function itUpdateDataDokter()
+    {
+        $storeDataDokter = $this
+            ->json('post', '/dokter/store', [
+                'kode_dokter' => 'DKT001',
+                'nama_dokter' => 'Resti Wulandari',
+                'spesialis' => 'Dokter Spesialis Anak',
+                'alamat_dokter' => 'Bandung',
+                'telepon_dokter' => 622,
+                'kode_poliklinik' => 'ANK',
+                'tarif' => 500000,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+        $this
+            ->assertDatabaseHas('dokter', [
+                'kode_dokter' => 'DKT001',
+                'nama_dokter' => 'Resti Wulandari',
+                'spesialis' => 'Dokter Spesialis Anak',
+                'alamat_dokter' => 'Bandung',
+                'telepon_dokter' => 622,
+                'kode_poliklinik' => 'ANK',
+                'tarif' => 500000,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+        $updateDataDokter = $this
+            ->json('put', '/dokter/update/1', [
+                'kode_dokter' => 'DKT002',
+                'nama_dokter' => 'Resti Wulandari Bismaka',
+                'spesialis' => 'Dokter Spesialis Mata',
+                'alamat_dokter' => 'Cimahi',
+                'telepon_dokter' => 633,
+                'kode_poliklinik' => 'MTA',
+                'tarif' => 1000000,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+        $this
+            ->assertDatabaseHas('dokter', [
+                'kode_dokter' => 'DKT002',
+                'nama_dokter' => 'Resti Wulandari Bismaka',
+                'spesialis' => 'Dokter Spesialis Mata',
+                'alamat_dokter' => 'Cimahi',
+                'telepon_dokter' => 633,
+                'kode_poliklinik' => 'MTA',
+                'tarif' => 1000000,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+        $updateDataDokter
+            ->assertStatus(302);
+    }
+
+    /**
+     * @test itDestroyDataDokter
+     */
+    public function itDestroyDataDokter()
+    {
+        $storeDataDokter = $this
+            ->json('post', '/dokter/store', [
+                'kode_dokter' => 'DKT001',
+                'nama_dokter' => 'Resti Wulandari',
+                'spesialis' => 'Dokter Spesialis Anak',
+                'alamat_dokter' => 'Bandung',
+                'telepon_dokter' => 622,
+                'kode_poliklinik' => 'ANK',
+                'tarif' => 500000,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+        $this
+            ->assertDatabaseHas('dokter', [
+                'kode_dokter' => 'DKT001',
+                'nama_dokter' => 'Resti Wulandari',
+                'spesialis' => 'Dokter Spesialis Anak',
+                'alamat_dokter' => 'Bandung',
+                'telepon_dokter' => 622,
+                'kode_poliklinik' => 'ANK',
+                'tarif' => 500000,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+        $destroyDataDokter = $this
+            ->json('delete', '/dokter/destroy/1');
+
+        $destroyDataDokter
+            ->assertStatus(200);
     }
 }

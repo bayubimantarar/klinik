@@ -13,4 +13,17 @@ class DokterRepository
 
         return $dokterStore;
     }
+
+    public function updateDataDokter($dokter, $id)
+    {
+        $dokterUpdate = Dokter::where('id', $id)
+            ->update($dokter);
+
+        return $dokterUpdate;
+    }
+
+    public function destroyDataDokter($id)
+    {
+        return $dokterDestroy = Dokter::destroy($id);
+    }
 }

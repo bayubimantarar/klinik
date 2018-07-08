@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dokter;
 use Illuminate\Http\Request;
 use App\Http\Requests\DokterRequest;
 use App\Repositories\DokterRepository;
@@ -26,7 +27,7 @@ class DokterController extends Controller
      */
     public function index()
     {
-        //
+        return view('dokter.home');
     }
 
     /**
@@ -61,9 +62,7 @@ class DokterController extends Controller
             ->dokterRepo
             ->storeDataDokter($dokter);
 
-        return response()->json([
-            'stored' => true
-        ]);
+        return redirect(route('dokter.index'));
     }
 
     /**
@@ -95,9 +94,23 @@ class DokterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DokterRequest $dokterReq, $id)
     {
-        //
+        $dokter = [
+            'kode_dokter'       => $dokterReq->kode_dokter,
+            'nama_dokter'       => $dokterReq->nama_dokter,
+            'spesialis'         => $dokterReq->spesialis,
+            'alamat_dokter'     => $dokterReq->alamat_dokter,
+            'telepon_dokter'    => $dokterReq->telepon_dokter,
+            'kode_poliklinik'   => $dokterReq->kode_poliklinik,
+            'tarif'             => $dokterReq->tarif,
+        ];
+
+        $update = $this
+            ->dokterRepo
+            ->updateDataDokter($dokter, $id);
+
+        return redirect(route('dokter.index'));
     }
 
     /**
@@ -108,6 +121,11 @@ class DokterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = $this
+            ->dokterRepo
+            ->destroyDataDokter($id);
+
+        return response()
+            ->json(200);
     }
 }

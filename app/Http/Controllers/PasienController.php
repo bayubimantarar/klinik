@@ -114,12 +114,14 @@ class PasienController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function destroy(PasienRepository $pasienRepository, $id)
+    public function destroy($id)
     {
-        $pasien = $this->pasienRepo
+        $pasien = $this
+            ->pasienRepo
             ->destroyDataPasien($id);
 
-        return response()->json($id);
+        return response()
+            ->json(200);
     }
 
     /**
