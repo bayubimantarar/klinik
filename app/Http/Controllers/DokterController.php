@@ -37,7 +37,7 @@ class DokterController extends Controller
      */
     public function create()
     {
-        //
+        return view('dokter.form');
     }
 
     /**

@@ -56,7 +56,7 @@ Pasien
                         <div class="row">
                             <div class="col-md-3">
                                 {!! Form::label('gender_pasien', 'Jenis Kelamin', ['class' => 'control-label']) !!}
-                                {!! Form::select('size', ['1' => 'Laki-Laki', '2' => 'Perempuan'], '', ['class' => 'form-control']) !!}
+                                {!! Form::select('gender_pasien', ['1' => 'Laki-Laki', '2' => 'Perempuan'], '', ['class' => 'form-control']) !!}
                             </div>
                         </div>
                     </div>

@@ -58,6 +58,11 @@ Route::group(['prefix' => 'dokter'], function(){
         'as' => 'dokter.index'
     ]);
 
+    Route::get('/create', [
+        'uses' => 'DokterController@create',
+        'as' => 'dokter.create'
+    ]);
+
     Route::post('/store', [
         'uses' => 'DokterController@store',
         'as' => 'dokter.store'

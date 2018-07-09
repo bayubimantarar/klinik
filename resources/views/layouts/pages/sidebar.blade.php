@@ -41,7 +41,7 @@
                 <a href="#"><i class="fa fa-group fa-fw"></i> Dokter<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#"><i class="fa fa-plus"></i> Tambah Data Dokter</a>
+                        <a href="{{ route('dokter.create') }}"><i class="fa fa-plus"></i> Tambah Data Dokter</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-file-o"></i> Data Dokter</a>
